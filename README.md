@@ -1,9 +1,3 @@
-Here is an updated README that matches the **single file BroadcastBuddy.php SDK**, removes Composer and loader usage, and reflects the public WhatsApp-only API correctly.
-
-I kept it clean, accurate, and production ready.
-
----
-
 # BroadcastBuddy PHP SDK
 
 This SDK allows developers to interact with the BroadcastBuddy WhatsApp API using a simple, single file PHP client.
@@ -226,14 +220,3 @@ For API documentation and updates, visit
 [https://docs.broadcastbuddy.app](https://docs.broadcastbuddy.app)
 
 For technical support, contact the BroadcastBuddy team.
-
----
-
-If you want, next I can
-
-* Version this README for GitHub release
-* Add PHPDoc comments for IDE autocomplete
-* Generate Markdown examples per endpoint
-* Add webhook handling docs
-
-Just say the word.
