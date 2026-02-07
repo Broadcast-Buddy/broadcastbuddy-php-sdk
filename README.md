@@ -1,153 +1,239 @@
+Here is an updated README that matches the **single file BroadcastBuddy.php SDK**, removes Composer and loader usage, and reflects the public WhatsApp-only API correctly.
+
+I kept it clean, accurate, and production ready.
+
+---
+
 # BroadcastBuddy PHP SDK
 
-This document provides instructions for installing and using the BroadcastBuddy PHP SDK, which allows you to interact with the BroadcastBuddy API seamlessly.
+This SDK allows developers to interact with the BroadcastBuddy WhatsApp API using a simple, single file PHP client.
+
+It is designed to be lightweight, secure, and easy to integrate into any PHP project.
+
+---
+
+## Requirements
+
+* PHP 7.4 or higher
+* cURL extension enabled
+
+No Composer. No external dependencies.
+
+---
 
 ## Installation
 
-### Requirements
-1. PHP 7.4 or higher
-2. cURL extension enabled
-3. Composer installed
+### Step 1. Download the SDK
 
-### Steps
+Download `BroadcastBuddy.php` and place it anywhere in your project.
 
-1. **Clone or Download the SDK**
-   Download or clone the SDK from the repository into your project directory:
-   ```bash
-   git clone https://github.com/your-repo/broadcastbuddy-php-sdk.git
-   ```
+Example:
 
-2. **Install Dependencies**
-   Navigate to the SDK directory and install dependencies using Composer:
-   ```bash
-   composer install
-   ```
+```
+/project-root/
+│
+├── BroadcastBuddy.php
+└── index.php
+```
 
-3. **Include the SDK in Your Project**
-   Use the provided `loader.php` file to include all necessary classes:
-   ```php
-   require_once 'path/to/BroadcastBuddy/loader.php';
-   ```
+---
 
-## Usage Examples
+### Step 2. Include the SDK
 
-### Initialize the SDK
-Start by creating an instance of any class with your API key:
+```php
+require_once 'BroadcastBuddy.php';
+```
+
+---
+
+## Initialization
+
+Create a new instance using your **public API key**.
+
 ```php
 $apiKey = 'your_api_key_here';
-$whatsapp = new BroadcastBuddyWhatsApp($apiKey);
+$bb = new BroadcastBuddy($apiKey);
 ```
 
-### Examples of Operations
+---
 
-#### WhatsApp Integration
+## WhatsApp API Usage
+
+### Start a WhatsApp Session
+
 ```php
-// Checks WhatsApp session status
-$response = $whatsapp->sessionStatus();
-print_r($response);
-
-// Send a WhatsApp message
-$response = $whatsapp->sendMessage('recipient_id', 'Hello, World!');
+$response = $bb->startSession();
 print_r($response);
 ```
 
-#### SMS Integration
+### Restart Session
+
 ```php
-$sms = new BroadcastBuddySMS($apiKey);
-
-// Check SMS balance
-$response = $sms->checkBalance();
-print_r($response);
-
-// Send an SMS
-$response = $sms->sendSMS('recipient_number', 'Your OTP is 12345', 'SenderID');
+$response = $bb->restartSession();
 print_r($response);
 ```
 
-#### Account Management
+### Terminate Session
+
 ```php
-$account = new BroadcastBuddyAccount($apiKey);
-
-// Add contact to subscription
-$first_name = 'Jane';
-$last_name = 'Doe';
-$email = 'jane@example.com';
-$birthday = '1998/04/22';
-$contact = '233558382705';
-$response = $account->addContact($first_name,$last_name,$email,$birthday,$contact);
+$response = $bb->terminateSession();
 print_r($response);
 ```
 
-#### OTP Handling
+### Check Session Status
+
 ```php
-$otp = new BroadcastBuddyOTP($apiKey);
-
-// Generate an OTP
-$response = $otp->generateOTP();
-print_r($response);
-
-// Verify an OTP
-$response = $otp->verifyOTP('123456');
+$response = $bb->checkStatus();
 print_r($response);
 ```
 
-#### Email Management
+---
+
+## Get Client Information
+
 ```php
-$email = new BroadcastBuddyEmail($apiKey);
-
-// Compose and send an email
-$response = $email->composeEmail('recipient@example.com', 'Subject', 'Message Body');
+$response = $bb->getClientInfo();
 print_r($response);
 ```
 
-#### Notifications
+---
+
+## Get QR Code
+
 ```php
-$notification = new BroadcastBuddyNotification($apiKey);
-
-// Send a push notification
-$response = $notification->sendPushNotification('example.com','Alert','https://example.com/favicon.ico','https://example.com/callback','This is a test notification');
+$response = $bb->getQrImage();
 print_r($response);
 ```
 
-#### Ultimate Integration
+---
+
+## Send Messages
+
+### Send Text Message
+
 ```php
-$ultimate = new BroadcastBuddyUltimate($apiKey);
-
-// Broadcast a message across multiple channels
-$message = 'Hello';
-$channels = [
-    ['gateway' => 'sms', 'recipient' => '1234567890'],
-    ['gateway' => 'email', 'recipient' => 'recipient@example.com', 'subject' => 'Test Email']
-];
-$response = $ultimate->sendBroadcast($channels, $message);
+$response = $bb->sendText(
+    '233XXXXXXXX@c.us',
+    'Hello from BroadcastBuddy'
+);
 print_r($response);
 ```
+
+### Send Media Message
+
+```php
+$response = $bb->sendMedia(
+    '233XXXXXXXX@c.us',
+    $base64Data,
+    'image/png',
+    'image.png',
+    'Optional caption'
+);
+print_r($response);
+```
+
+### Send Poll
+
+```php
+$response = $bb->sendPoll(
+    '233XXXXXXXX@c.us',
+    'Your favorite language?',
+    ['PHP', 'JavaScript', 'Python'],
+    false
+);
+print_r($response);
+```
+
+### Send Location
+
+```php
+$response = $bb->sendLocation(
+    '233XXXXXXXX@c.us',
+    5.6037,
+    -0.1870,
+    'Accra'
+);
+print_r($response);
+```
+
+---
+
+## Fetch Chats and Contacts
+
+### Get Chats
+
+```php
+$response = $bb->getChats();
+print_r($response);
+```
+
+### Get Contacts
+
+```php
+$response = $bb->getContacts();
+print_r($response);
+```
+
+---
 
 ## Error Handling
-Handle API errors gracefully by checking the response structure:
+
+Wrap calls in a try catch block for safe error handling.
+
 ```php
-if (isset($response['error'])) {
-    echo 'Error: ' . $response['error'];
-} else {
-    print_r($response);
+try {
+    $bb->sendText('233XXXXXXXX@c.us', 'Hello');
+} catch (Exception $e) {
+    echo 'Error: ' . $e->getMessage();
 }
 ```
 
-## File Structure
-Ensure your project includes the following structure:
+---
+
+## API Base URL
+
+All requests are sent to:
+
 ```
-/BroadcastBuddy/
-├── classes/
-│   ├── BaseBroadcastBuddy.php
-│   ├── BroadcastBuddyWhatsApp.php
-│   ├── BroadcastBuddySMS.php
-│   ├── BroadcastBuddyAccount.php
-│   ├── BroadcastBuddyOTP.php
-│   ├── BroadcastBuddyNotification.php
-│   ├── BroadcastBuddyEmail.php
-│   └── BroadcastBuddyUltimate.php
-└── loader.php
+https://broadcastbuddy.app/api/v1
 ```
 
+Authentication is handled automatically using your API key in the endpoint path.
+
+---
+
+## File Structure
+
+```
+/project-root/
+├── BroadcastBuddy.php
+└── index.php
+```
+
+---
+
+## Security Notes
+
+* Never expose your API key in frontend code
+* Always store API keys in environment variables
+* Rotate keys if compromised
+
+---
+
 ## Support
-For further assistance, contact the development team or refer to the [BroadcastBuddy API Documentation](https://docs.broadcastbuddy.app).
+
+For API documentation and updates, visit
+[https://docs.broadcastbuddy.app](https://docs.broadcastbuddy.app)
+
+For technical support, contact the BroadcastBuddy team.
+
+---
+
+If you want, next I can
+
+* Version this README for GitHub release
+* Add PHPDoc comments for IDE autocomplete
+* Generate Markdown examples per endpoint
+* Add webhook handling docs
+
+Just say the word.
