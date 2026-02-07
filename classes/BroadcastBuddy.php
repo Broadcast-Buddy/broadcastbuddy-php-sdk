@@ -26,7 +26,8 @@ class BroadcastBuddy
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_HTTPHEADER => [
-                'Content-Type: application/json'
+                'Content-Type: application/json',
+                'x-api-key: 0987'
             ]
         ];
 
