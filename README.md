@@ -217,6 +217,6 @@ Authentication is handled automatically using your API key in the endpoint path.
 ## Support
 
 For API documentation and updates, visit
-[https://docs.broadcastbuddy.app](https://docs.broadcastbuddy.app)
+[https://broadcastbuddy.app/docs](https://broadcastbuddy.app/docs)
 
 For technical support, contact the BroadcastBuddy team.
