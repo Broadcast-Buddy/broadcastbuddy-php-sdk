@@ -17,17 +17,14 @@ No Composer. No external dependencies.
 
 ## Installation
 
-### Step 1. Download the SDK
+### Step 1. Install the SDK
 
-Download `BroadcastBuddy.php` and place it anywhere in your project.
+Install `Broadcast Buddy` in your project.
 
 Example:
 
 ```
-/project-root/
-│
-├── BroadcastBuddy.php
-└── index.php
+composer require broadcastbuddy/buddy-php
 ```
 
 ---
@@ -35,7 +32,7 @@ Example:
 ### Step 2. Include the SDK
 
 ```php
-require_once 'BroadcastBuddy.php';
+require_once 'vendor/autoload.php';
 ```
 
 ---
@@ -45,6 +42,10 @@ require_once 'BroadcastBuddy.php';
 Create a new instance using your **public API key**.
 
 ```php
+use BroadcastBuddy\BroadcastBuddy;
+
+$bb = new BroadcastBuddy('your_api_key_here');
+
 $apiKey = 'your_api_key_here';
 $bb = new BroadcastBuddy($apiKey);
 ```

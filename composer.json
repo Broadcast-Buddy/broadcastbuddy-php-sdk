@@ -1,7 +1,16 @@
 {
     "name": "broadcastbuddy/buddy-php",
-    "description": "A project for broadcasting and notifications",
-    "type": "project",
+    "description": "Official PHP SDK for the BroadcastBuddy WhatsApp API",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "BroadcastBuddy\\": "classes/"
+        }
+    },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist"
