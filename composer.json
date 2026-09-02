@@ -1,0 +1,46 @@
+{
+  "name": "broadcastbuddy/broadcastbuddy-php",
+  "description": "Official PHP Client & Laravel Service Provider for Broadcast Buddy WhatsApp Gateway API.",
+  "type": "library",
+  "keywords": [
+    "broadcastbuddy",
+    "whatsapp",
+    "whatsapp-api",
+    "laravel",
+    "notifications",
+    "messaging",
+    "sms-alternative",
+    "polls"
+  ],
+  "homepage": "https://broadcastbuddy.app",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Broadcast Buddy Team",
+      "email": "support@broadcastbuddy.app",
+      "homepage": "https://broadcastbuddy.app"
+    }
+  ],
+  "require": {
+    "php": "^7.4 || ^8.0 || ^8.1 || ^8.2 || ^8.3"
+  },
+  "suggest": {
+    "illuminate/support": "Required to use Laravel Service Provider, Facades, and Notification Channels (^8.0|^9.0|^10.0|^11.0)."
+  },
+  "autoload": {
+    "psr-4": {
+      "BroadcastBuddy\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "BroadcastBuddy\\Laravel\\BroadcastBuddyServiceProvider"
+      ],
+      "aliases": {
+        "BroadcastBuddy": "BroadcastBuddy\\Laravel\\Facades\\BroadcastBuddy"
+      }
+    }
+  },
+  "minimum-stability": "stable"
+}
